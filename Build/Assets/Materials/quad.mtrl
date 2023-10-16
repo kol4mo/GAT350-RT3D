@@ -1,6 +1,6 @@
 {
-  "program":"Shaders/unlit_texture.prog",
-  "textures": [ "Textures/llama.tga" ],
+  "program":"Shaders/unlit_multi_texture.prog",
+  "textures": [ "Textures/llama.tga", "Textures/blob.jpg" ],
   "color":[
       1,
       1,

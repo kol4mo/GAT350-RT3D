@@ -51,4 +51,13 @@ namespace nc
 			m_textures[i]->Bind();
 		}
 	}
+	void Material::processGUI()
+	{
+		ImGui::Begin("Material");
+		ImGui::ColorEdit4("Color", glm::value_ptr(color));
+		ImGui::DragFloat2("Tiling", glm::value_ptr(tiling));
+		ImGui::DragFloat2("Offset", glm::value_ptr(offset), 0.01f);
+
+		ImGui::End();
+	}
 }

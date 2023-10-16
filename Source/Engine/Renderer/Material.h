@@ -18,6 +18,8 @@ namespace nc
 		void Bind();
 
 		res_t<Program> GetProgram() { return m_program; }
+		void processGUI();
+
 
 	public:
 		glm::vec4 color;
