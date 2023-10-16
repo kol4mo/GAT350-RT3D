@@ -9,12 +9,8 @@ namespace nc
 {
     bool World03::Initialize() {
 
-        m_program = GET_RESOURCE(Program, "Shaders/unlit_texture.prog");
-        m_program->Use();
+        m_material = GET_RESOURCE(Material, "Materials/quad.mtrl");
 
-        m_texture = GET_RESOURCE(Texture, "textures/blob.jpg");
-        m_texture->Bind();
-        m_texture->SetActive(GL_TEXTURE0);
 
         //vertex data
         float vertexData[] = {
@@ -50,24 +46,26 @@ namespace nc
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -dt * m_speed : 0;
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? -dt * m_speed : 0;
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? +dt * m_speed : 0;
+
         m_time += dt;
 
+        m_material->Bind();
         //model matrix
         //glm::mat4 position = glm::translate(glm::mat4{ 1 }, m_position);
         //glm::mat4 rotation = glm::rotate(glm::mat4{ 1 }, glm::radians(m_angle), glm::vec3{ 0, 0, 1 });
         //glm::mat4 model = position * rotation;
-        m_program->SetUniform("offset", glm::vec2{ 0,0 });
-        m_program->SetUniform("tiling", glm::vec2{ 1, 1});
+        //m_program->SetUniform("offset", glm::vec2{ 0,0 });
+       // m_program->SetUniform("tiling", glm::vec2{ 2, 2});
         
-        m_program->SetUniform("model", m_transform.GetMatrix());       
+        m_material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
 
         //view matrix
         glm::mat4 view = glm::lookAt(glm::vec3{ 0, 0, 3 }, glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 1, 0 });
-        m_program->SetUniform("view", view);
+        m_material->GetProgram()->SetUniform("view", view);
 
         //projection
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f );
-        m_program->SetUniform("projection", projection);
+        m_material->GetProgram()->SetUniform("projection", projection);
 
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
