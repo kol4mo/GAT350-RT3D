@@ -1,6 +1,7 @@
 #pragma once
 #include "Framework/World.h"
 #include "Renderer/Renderer.h"
+#include "Core/Math/Transform.h"
 #include <vector>
 
 namespace nc
@@ -14,7 +15,7 @@ namespace nc
 		void Draw(Renderer& renderer) override;
 
 	private:
-		float m_time;
+		float m_time = 0;
 		float m_speed = 5;
 		
 		Transform m_transform;
