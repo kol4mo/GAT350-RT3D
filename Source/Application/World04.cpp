@@ -31,6 +31,12 @@ namespace nc
         ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
         ImGui::End();
 
+        ImGui::Begin("Light");
+        ImGui::DragFloat3("Position", &lightPosition[0]);
+        ImGui::ColorEdit3("Ambient Color", &lightAColor[0]);
+        ImGui::ColorEdit3("Diffuse Color", &lightDColor[0]);
+        ImGui::End();
+
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? +dt * m_speed : 0;
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -dt * m_speed : 0;
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? -dt * m_speed : 0;
@@ -59,6 +65,11 @@ namespace nc
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), 800.0f / 600.0f, 0.01f, 100.0f );
         material->GetProgram()->SetUniform("projection", projection);
 
+        material->GetProgram()->SetUniform("light.position", lightPosition);
+        material->GetProgram()->SetUniform("light.Acolor", lightAColor);
+        material->GetProgram()->SetUniform("light.Dcolor", lightDColor);
+
+
         ENGINE.GetSystem<Gui>()->EndFrame();
     }
 
@@ -66,7 +77,8 @@ namespace nc
         // pre-render
         renderer.BeginFrame();
         // render
-        m_model->Draw(GL_TRIANGLES);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        m_model->Draw(GL_TRIANGLES);    
         ENGINE.GetSystem<Gui>()->Draw();
         // post-render
         renderer.EndFrame();
