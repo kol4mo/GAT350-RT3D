@@ -10,10 +10,10 @@ namespace nc
     bool World04::Initialize() {
 
 
-        auto material = GET_RESOURCE(Material, "Materials/Spot.mtrl");
+        auto material = GET_RESOURCE(Material, "Materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        m_model->Load("Models/spot.obj");
+        m_model->Load("Models/sphere.obj");
 
        // m_transform.position.z = -10.0f;
 
@@ -26,9 +26,9 @@ namespace nc
     void World04::Update(float dt) {
         ENGINE.GetSystem<Gui>()->BeginFrame();        
         ImGui::Begin("Transform");
-        ImGui::DragFloat3("Position", &m_transform.position[0]);
-        ImGui::DragFloat3("Rotation", &m_transform.rotation[0]);
-        ImGui::DragFloat3("Scale", &m_transform.scale[0]);
+        ImGui::DragFloat3("Position", &m_transform.position[0], 0.1f);
+        ImGui::DragFloat3("Rotation", &m_transform.rotation[0], 0.1f);
+        ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
         ImGui::End();
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? +dt * m_speed : 0;
