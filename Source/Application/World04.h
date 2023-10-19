@@ -19,7 +19,7 @@ namespace nc
 		float m_speed = 5;
 		
 		glm::vec3 lightPosition = {0 ,8, 0};
-		glm::vec3 lightAColor = {1, 1, 1};
+		glm::vec3 lightAColor = { 0.2, 0.2, 0.2 };
 		glm::vec3 lightDColor = { 1, 1, 1 };
 
 		Transform m_transform;
