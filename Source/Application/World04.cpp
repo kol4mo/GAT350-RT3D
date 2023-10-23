@@ -18,6 +18,12 @@ namespace nc
 
        // m_transform.position.z = -10.0f;
 
+
+        m_light.type = light_t::eType::Point;
+        m_light.position = { 0, 5, 0 };
+        m_light.direction = glm::vec3{ 0, -1, 0 };
+        m_light.color = glm::vec3{ 1 };
+        m_light.cutoff = 30.0f;
         return true;
     }
 
@@ -33,9 +39,13 @@ namespace nc
         ImGui::End();
 
         ImGui::Begin("Light");
-        ImGui::DragFloat3("Position", &lightPosition[0]);
+        const char* types[] = { "Point", "Directional", "Spot" };
+        ImGui::Combo("Type", (int*)&m_light.type, types, 3);
+        if (m_light.type != light_t::Directional) ImGui::DragFloat3("Position", &m_light.position[0]);
+        if (m_light.type != light_t::Point) ImGui::DragFloat3("Direction", &m_light.direction[0]);
+        if (m_light.type == light_t::Spot) ImGui::DragFloat("Cutoff", &m_light.cutoff, 1, 0, 90);
         ImGui::ColorEdit3("Ambient Color", &lightAColor[0]);
-        ImGui::ColorEdit3("Diffuse Color", &lightDColor[0]);
+        ImGui::ColorEdit3("Diffuse Color", &m_light.color[0]);
         ImGui::End();
 
         m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? +dt * m_speed : 0;
@@ -66,9 +76,13 @@ namespace nc
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
         material->GetProgram()->SetUniform("projection", projection);
 
-        material->GetProgram()->SetUniform("light.position", lightPosition);
+
+        material->GetProgram()->SetUniform("light.type", m_light.type);
+        material->GetProgram()->SetUniform("light.position", m_light.position);
+        material->GetProgram()->SetUniform("light.direction", m_light.direction);
         material->GetProgram()->SetUniform("light.Acolor", lightAColor);
-        material->GetProgram()->SetUniform("light.Dcolor", lightDColor);
+        material->GetProgram()->SetUniform("light.Dcolor", m_light.color);
+        material->GetProgram()->SetUniform("light.cutoff", glm::radians(m_light.cutoff));
 
 
         ENGINE.GetSystem<Gui>()->EndFrame();

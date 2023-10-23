@@ -1,4 +1,7 @@
 #version 430
+#define POINT 0
+#define Directional 1
+#define SPOT 2
 
 in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec3 fnormal;
@@ -18,7 +21,10 @@ uniform struct Material
 } material;
 
 uniform struct Light {//GUI light changes
+	int type;
 	vec3 position;
+	vec3 direction;
+	float cutoff;
 	vec3 Acolor;
 	vec3 Dcolor;
 } light;
@@ -28,9 +34,16 @@ layout(binding = 0) uniform sampler2D tex;
 vec3 ads(in vec3 position, in vec3 normal) {
 	vec3 ambient = light.Acolor;//Ambient lighting
 
-	vec3 lightDir = normalize(light.position - fposition);//find light Direction
+	vec3 lightDir = (light.type == Directional) ? normalize(-light.direction) : normalize(light.position - fposition);//find light Direction
+	
+	float spotIntensity = 1;
+	if (light.type == SPOT) {
+		float angle = acos(dot(light.direction, -lightDir));
+		if (angle > light.cutoff) spotIntensity = 0;
+	}
+	
 	float intensity = max(dot(lightDir, fnormal), 0); //intensity based on power and distance
-	vec3 diffuse = material.diffuse * (light.Dcolor * intensity);//tge objects color value based on diffuse
+	vec3 diffuse = material.diffuse * (light.Dcolor * intensity * spotIntensity);//tge objects color value based on diffuse
 
 	//Specular
 	vec3 specular = vec3(0);
