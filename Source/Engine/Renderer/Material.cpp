@@ -43,9 +43,9 @@ namespace nc
 	void Material::Bind()
 	{
 		m_program->Use();
-		m_program->SetUniform("fmaterial.diffuse", diffuse);
-		m_program->SetUniform("fmaterial.specular", specular);
-		m_program->SetUniform("fmaterial.shininess", shininess);
+		m_program->SetUniform("material.diffuse", diffuse);
+		m_program->SetUniform("material.specular", specular);
+		m_program->SetUniform("material.shininess", shininess);
 		m_program->SetUniform("material.tiling", tiling);
 		m_program->SetUniform("material.offset", offset);
 
