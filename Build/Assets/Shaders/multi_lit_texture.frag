@@ -31,14 +31,14 @@ uniform struct Light {//GUI light changes
 	vec3 Dcolor;
 } lights[3];
 
-vec3 ambientColor;
+uniform vec3 ambientColor;
 
 uniform int numLights = 3;
 layout(binding = 0) uniform sampler2D tex;
 
 void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, out vec3 specular) {
 
-vec3 lightDir = (light.type == Directional) ? normalize(-light.direction) : normalize(light.position - fposition);//find light Direction
+	vec3 lightDir = (light.type == Directional) ? normalize(-light.direction) : normalize(light.position - fposition);//find light Direction
 	
 	float spotIntensity = 1;
 	if (light.type == SPOT) {
@@ -59,6 +59,16 @@ vec3 lightDir = (light.type == Directional) ? normalize(-light.direction) : norm
 		specular = material.specular * intensity * spotIntensity;//color value of specular
 	}
 
+}
+
+float attenuation(in vec3 position1, in vec3 position2, in float range)
+{
+	float distanceSqr = dot(position1 - position2, position1 - position2);
+	float rangeSqr = pow(range, 2.0);
+	float attenuation = max(0, 1 - pow((distanceSqr / rangeSqr), 2.0));
+	attenuation = pow(attenuation, 2.0);
+ 
+	return attenuation;
 }
 
 /*
@@ -82,13 +92,14 @@ void main()
 {
 	vec4 texcolor = texture(tex, ftexcoord);
 
-	ocolor = vec4(ambientColor, 1);
+	ocolor = vec4(ambientColor, 1) * texcolor;
 
 	for (int i= 1; i < numLights; i++) {
 		vec3 diffuse;
 		vec3 specular;
+		float attenuation = (lights[i].type == Directional) ? 1 : attenuation (lights[i].position, fposition, lights[i].range);
 
 		phong(lights[i], fposition, fnormal, diffuse, specular);
-		ocolor += (vec4(diffuse, 1) * texcolor) + vec4(specular, 1); 
+		ocolor += ((vec4(diffuse, 1) * texcolor) + vec4(specular, 1)) * attenuation * lights[i].intensity; 
 	}
 }
