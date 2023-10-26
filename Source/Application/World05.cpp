@@ -10,7 +10,8 @@ namespace nc
 {
     bool World05::Initialize() {
         m_scene = std::make_unique<Scene>();
-
+        m_scene->Load("scenes/scene.json");
+        m_scene->Initialize();
         {
             auto actor = CREATE_CLASS(Actor);
             actor->name = "actor1";
@@ -48,7 +49,7 @@ namespace nc
         ENGINE.GetSystem<Gui>()->BeginFrame();        
 
         m_scene->Update(dt);
-        //m_scene->ProcessGui();
+        m_scene->ProcessGui();
 
         auto actor = m_scene->GetActorByName<Actor>("actor1");
 
