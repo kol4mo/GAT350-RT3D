@@ -37,7 +37,7 @@ namespace nc
 	}
 
 	inline void CreateUniqueStr(std::string& input) {
-		input += uniqstr;
+		input += (char)uniqstr;
 		uniqstr++;
 	}
 

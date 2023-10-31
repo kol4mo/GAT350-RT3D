@@ -1,8 +1,9 @@
 #include "Material.h"
 #include "Program.h"
 #include "Texture.h"
-#include "Core/Core.h"
-
+//#include "Core/Core.h"
+#include "Core/Json.h"
+#include <rapidjson/include/rapidjson/document.h>
 namespace nc
 {
 	bool Material::Create(std::string filename, ...)
