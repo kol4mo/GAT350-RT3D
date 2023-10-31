@@ -13,7 +13,7 @@
 				{
 					"type": "ModelComponent",
 					"modelName": "models/squirrel.glb",
-					"materialName": "materials/squirrel.mtrl"
+					"materialName": "materials/phong.mtrl"
 				}
 			]
 		}

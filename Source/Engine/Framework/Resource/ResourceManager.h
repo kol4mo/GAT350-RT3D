@@ -50,6 +50,7 @@ namespace nc
 		m_resources[filename] = resource;
 		return resource;
 	}
+	
 	template<typename T>
 	inline std::vector<res_t<T>> ResourceManager::GetAllOfType()
 	{

@@ -28,7 +28,7 @@ uniform struct Light {//GUI light changes
 	float outerAngle;
 	float intensity;
 	float range;
-	vec3 Dcolor;
+	vec3 color;
 } lights[3];
 
 uniform vec3 ambientColor;
@@ -47,7 +47,7 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 	}
 	
 	float intensity = max(dot(lightDir, fnormal), 0) * spotIntensity; //intensity based on power and distance
-	diffuse = material.diffuse * (light.Dcolor * intensity);//tge objects color value based on diffuse
+	diffuse = material.diffuse * (light.color * intensity);//tge objects color value based on diffuse
 
 	//Specular
 	specular = vec3(0);

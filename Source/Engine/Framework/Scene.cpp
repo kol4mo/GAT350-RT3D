@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "Framework/Components/CollisionComponent.h"
+#include "Framework.h"
 #include "Components/LightComponent.h"
 
 namespace nc
@@ -38,6 +38,16 @@ namespace nc
 			}
 		}
 
+		// get camera component
+		CameraComponent* camera = nullptr;
+		for (auto& actor : m_actors)
+		{
+			if (!actor->active) continue;
+
+			camera = actor->GetComponent<CameraComponent>();
+			if (camera) break;
+		}
+
 		// get all shader programs in the resource system
 		auto programs = ResourceManager::Instance().GetAllOfType<Program>();
 		// set all shader programs camera and lights uniforms
@@ -58,10 +68,12 @@ namespace nc
 				light->SetProgram(program, name);
 			}
 
+			if (camera) camera->SetProgram(program);
+
 
 
 			program->SetUniform("numLights", index);
-			program->SetUniform("ambientLight", ambientColor);
+			program->SetUniform("ambientColor", ambientColor);
 		}
 
 

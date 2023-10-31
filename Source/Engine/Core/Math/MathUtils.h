@@ -42,7 +42,7 @@ namespace nc
 	}
 
 	template<typename T> 
-	constexpr T Lerp(const T& a, const T& b, float t) // t = 0 <-> 1
+	constexpr T Lerp(const T& a, const T& b, float t) 
 	{
 		return (a * (1.0f - t)) + (b * t);
 	}
