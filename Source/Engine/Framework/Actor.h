@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
-#include "Core/Core.h"
+//#include "Core/Core.h"
+#include "Core/Math/Transform.h"
 #include "Renderer/Renderer.h"
 #include "Components/Component.h"
 #include <memory>

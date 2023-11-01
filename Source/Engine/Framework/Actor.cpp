@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Components/RenderComponent.h"
+#include "Core/Core.h"
 
 namespace nc
 {

@@ -1,6 +1,9 @@
 #include "Scene.h"
-#include "Framework.h"
+#include "Components/CameraComponent.h"
 #include "Components/LightComponent.h"
+#include <vector>
+#include <algorithm>
+#include <iostream>
 
 namespace nc
 {

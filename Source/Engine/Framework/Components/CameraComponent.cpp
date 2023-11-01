@@ -1,6 +1,7 @@
 #include "CameraComponent.h"
 #include "Framework/Actor.h"
 #include "Framework/Engine.h"
+//#include "Framework/Engine.h"
 #include "ModelComponent.h"
 
 namespace nc
@@ -13,7 +14,7 @@ namespace nc
 		if (aspect == 0)
 		{
 			// set aspect with renderer width / renderer height (make sure it is a floating point division)
-			aspect = ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight();
+			aspect = nc::Engine::Instance().GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight();
 			// aspect = width / height;
 		}
 

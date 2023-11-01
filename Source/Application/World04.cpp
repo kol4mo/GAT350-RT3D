@@ -3,6 +3,7 @@
 #include "Input/InputSystem.h"
 #include <glm/glm/gtc/type_ptr.hpp>
 #include <glm/glm/gtx/color_space.hpp>
+#include <random>
 
 
 
@@ -23,9 +24,9 @@ namespace nc
         {
 
             m_lights[i].type = light_t::eType::Point;
-            m_lights[i].position = { randomf(-3, 3), 5, 0};
+            //m_lights[i].position = { randomf(-3, 3), 5, 0};
             m_lights[i].direction = glm::vec3{ 0, -1, 0 };
-            m_lights[i].color = glm::rgbColor(glm::vec3{ randomf() * 360, 1, 1 });
+           // m_lights[i].color = glm::rgbColor(glm::vec3{ randomf() * 360, 1, 1 });
             m_lights[i].intensity = 1;
             m_lights[i].range = 10;
             m_lights[i].innerAngle = 10.0f;

@@ -1,6 +1,7 @@
 #include "Material.h"
 #include "Program.h"
 #include "Texture.h"
+#include "Cubemap.h"
 //#include "Core/Core.h"
 #include "Core/Json.h"
 #include <rapidjson/include/rapidjson/document.h>
@@ -24,8 +25,7 @@ namespace nc
 		m_program = GET_RESOURCE(Program, program);
 
 		std::string albedoTextureName;
-		READ_NAME_DATA(document, "albedoTexture", albedoTextureName);
-		if (!albedoTextureName.empty()) {
+		if (READ_NAME_DATA(document, "albedoTexture", albedoTextureName)) {
 			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
@@ -48,6 +48,15 @@ namespace nc
 		if (!normalTextureName.empty()) {
 			params |= NORMAL_TEXTURE_MASK;
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
+		}
+
+		std::string cubemapName;
+		READ_NAME_DATA(document, "cubemap", cubemapName);
+		if (!cubemapName.empty()) {
+			params |= CUBEMAP_TEXTURE_MASK;
+			std::vector<std::string> cubemaps;
+			READ_DATA(document, cubemaps);
+			normalTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
 		}
 
 		READ_DATA(document, albedo);

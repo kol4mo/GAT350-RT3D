@@ -20,10 +20,10 @@ namespace nc
 		void Bind() { glBindTexture(m_target, m_texture); }
 
 		friend class Renderer;
-
-	private:
-		GLuint m_texture = 0;
+	protected:
 		GLenum m_target = GL_TEXTURE_2D;
+		GLuint m_texture = 0;
 		glm::ivec2 m_size{ 0 };
+	private:
 	};
 }
