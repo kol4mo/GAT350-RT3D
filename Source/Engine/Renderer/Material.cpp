@@ -56,7 +56,7 @@ namespace nc
 			params |= CUBEMAP_TEXTURE_MASK;
 			std::vector<std::string> cubemaps;
 			READ_DATA(document, cubemaps);
-			normalTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
+			cubemapTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
 		}
 
 		READ_DATA(document, albedo);

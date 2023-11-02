@@ -21,7 +21,7 @@ namespace nc
 	private:
 		float m_time = 0;
 		float m_speed = 5;
-
+		float m_refraction{ 1 };
 
 		glm::vec3 lightAColor = { 0.2, 0.2, 0.2 };
 

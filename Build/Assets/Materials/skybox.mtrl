@@ -1,12 +1,12 @@
 {
   "program": "shaders/skybox.prog",
-  "cubemap": "night_cubemap",
+  "cubemap": "ForbiddenCity",
   "cubemaps": [
-    "textures/night_cubemap/posx.jpg",
-    "textures/night_cubemap/negx.jpg",
-    "textures/night_cubemap/posy.jpg",
-    "textures/night_cubemap/negy.jpg",
-    "textures/night_cubemap/posz.jpg",
-    "textures/night_cubemap/negz.jpg"
+    "textures/no/posx.jpg",
+    "textures/no/negx.jpg",
+    "textures/no/posy.jpg",
+    "textures/no/negy.jpg",
+    "textures/no/posz.jpg",
+    "textures/no/negz.jpg"
   ]
 }

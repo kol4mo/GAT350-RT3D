@@ -22,7 +22,7 @@ namespace nc
 		std::vector<std::string> filenames = va_arg(args, std::vector<std::string>);
 
 		// va_end - ends traversal of the variadic function arguments
-		va_end(args);
+		va_end(args);	
 
 		// create textures (returns true/false if successful)
 		return Load(filenames);
