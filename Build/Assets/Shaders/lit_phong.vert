@@ -12,15 +12,14 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-uniform struct Material
-{
-    uint params;
+uniform struct Material {
+	uint params;
 	vec3 albedo;
 	vec3 specular;
 	vec3 emissive;
 	float shininess;
-		vec2 offset;
 	vec2 tiling;
+	vec2 offset;
 } material;
 
 
