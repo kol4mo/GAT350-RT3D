@@ -1,6 +1,8 @@
 #include "World05.h"
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
+#include "Core/Random.h"
+#include "Core/StringUtils.h"
 #include <glm/glm/gtc/type_ptr.hpp>
 #include <glm/glm/gtx/color_space.hpp>
 
@@ -13,24 +15,6 @@ namespace nc
         m_scene->Load("scenes/scene.json");
         m_scene->Initialize();
 
-        {
-            auto actor = CREATE_CLASS(Actor);
-            actor->name = "camera1";
-            actor->transform.rotation = glm::radians(glm::vec3{ 0, 180, 0 });
-
-            auto cameraComponent = CREATE_CLASS(CameraComponent);
-            cameraComponent->SetPerspective(70.0f, ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.1f, 100.0f);
-            actor->AddComponent(std::move(cameraComponent));
-
-            auto cameraController = CREATE_CLASS(CameraController);
-            cameraController->speed = 5;
-            cameraController->sensitivity = 0.5f;
-            cameraController->m_owner = actor.get();
-            cameraController->Initialize();
-            actor->AddComponent(std::move(cameraController));
-
-            m_scene->Add(std::move(actor));
-        }
 
         {
             auto actor = CREATE_CLASS(Actor);
@@ -46,6 +30,14 @@ namespace nc
             actor->AddComponent(std::move(lightComponent));
             m_scene->Add(std::move(actor));
         }
+
+        auto actor = CREATE_CLASS_BASE(Actor, "tree");
+        std::string name = "tree"; CreateUniqueStr(name);
+        actor->name = name;
+        actor->transform.position = glm::vec3{ randomf(-10,10) , 0, randomf(-10,10) };
+        actor->transform.scale = glm::vec3{ random(0.5f, 3.0f), random(0.5f, 3.0f), 0 };
+        actor->Initialize();
+        m_scene->Add(std::move(actor));
 
         return true;
     }

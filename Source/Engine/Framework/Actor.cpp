@@ -111,6 +111,7 @@ namespace nc
 				READ_DATA(componentValue, type);
 
 				auto component = CREATE_CLASS_BASE(Component, type);
+
 				component->Read(componentValue);
 
 				AddComponent(std::move(component));

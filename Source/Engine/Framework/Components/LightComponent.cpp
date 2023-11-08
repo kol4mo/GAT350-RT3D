@@ -48,6 +48,11 @@ namespace nc
 
 	void LightComponent::Read(const nc::json_t& value)
 	{
+		READ_DATA(value, color);
+		READ_DATA(value, intensity);
+		READ_DATA(value, range);
+		READ_DATA(value, innerAngle);
+		READ_DATA(value, outerAngle);
 		// read json file
 	}
 }
