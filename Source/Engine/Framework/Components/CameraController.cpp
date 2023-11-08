@@ -1,4 +1,4 @@
-#include "CameraController.h"
+﻿#include "CameraController.h"
 #include "Framework/Actor.h"
 #include "Framework/Engine.h"
 #include "Input/InputSystem.h"
@@ -15,6 +15,12 @@ namespace nc
 		yaw = m_owner->transform.rotation.y;
 
 		return true;
+	}
+
+	void CameraController::ProcessGui()
+	{
+		ImGui::DragFloat("Speed", &speed, 0.1f);
+		ImGui::DragFloat("Sensitivity", &sensitivity, 0.1f);
 	}
 
 	void CameraController::Update(float dt)

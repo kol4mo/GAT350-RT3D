@@ -9,7 +9,10 @@ namespace nc {
 	{
 		return true;
 	}
-
+	void RotateComponent::ProcessGui()
+	{
+		ImGui::DragFloat3("Rotate", glm::value_ptr(eulerAngle));
+	}
 	void RotateComponent::Update(float dt)
 	{
 		glm::quat rotation = EulerToQuaternion(eulerAngle * dt);

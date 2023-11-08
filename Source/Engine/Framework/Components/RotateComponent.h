@@ -9,6 +9,7 @@ namespace nc
 		CLASS_DECLARATION(RotateComponent)
 
 		bool Initialize() override;
+		void ProcessGui();
 		void Update(float dt) override;
 
 	public:

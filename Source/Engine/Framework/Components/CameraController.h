@@ -9,6 +9,7 @@ namespace nc
 		CLASS_DECLARATION(CameraController)
 
 		bool Initialize() override;
+		void ProcessGui();
 		void Update(float dt) override;
 
 	public:
