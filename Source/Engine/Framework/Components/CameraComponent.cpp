@@ -27,7 +27,12 @@ namespace nc
 		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
 		// view = glm::lookAt(<owner transform position>, <owner transform position + owner transform forward>, <up vector>);
 		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
+		if (projectionType == Perspective) {
 		projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		}
+		else {
+			projection = glm::ortho(-size * aspect * 0.5f, size * aspect * 0.5f, -size * 0.5f, size * 0.5f, near, far);
+		}
 		// projection = glm::perspective(<parameters>);
 
 	}
@@ -63,11 +68,15 @@ namespace nc
 
 	void CameraComponent::ProcessGui()
 	{
+		const char* types[] = { "Perspective", "Orthographic" };
+		ImGui::Combo("Projection", (int*)(&projectionType), types, 2);
+
 		// use ImGui::DragFloat to set fov, aspect, near and far values (use speed of 0.1f)
 		ImGui::DragFloat("Fov", &fov, 0.1f);
 		ImGui::DragFloat("Aspect", &aspect, 0.1f);
 		ImGui::DragFloat("Near", &near, 0.1f);
 		ImGui::DragFloat("Far", &far, 0.1f);
+		ImGui::DragFloat("Size", &size, 0.1f);
 	}
 
 	void CameraComponent::Read(const json_t& value)
@@ -76,6 +85,10 @@ namespace nc
 		READ_DATA(value, aspect);
 		READ_DATA(value, near);
 		READ_DATA(value, far);
+		std::string projectionTypeName;
+		READ_NAME_DATA(value, "ProjectionType", projectionTypeName);
+		if (IsEqualIgnoreCase("orthographic", projectionTypeName)) projectionType = Orthographic;
+		READ_DATA(value, size);
 		// READ_DATA of fov, aspect, near and far values
 	}
 }

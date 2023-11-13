@@ -36,7 +36,7 @@ float random(vec2 st)
 	return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
 vec4 Grain(in vec4 color) {
-	return color * random(gl_FragCoord.xy + time);;
+	return color * random(gl_FragCoord.xy + time);
 }
 vec4 Scanline(in vec4 color) {
 	return (mod(int(gl_FragCoord.y), 4) != 0) ? vec4(0) : color;

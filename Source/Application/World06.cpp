@@ -47,38 +47,40 @@ namespace nc
         bool effect = m_params & INVERT_MASK;
         if (ImGui::Checkbox("Invert", &effect)) {
             if (effect) m_params |= INVERT_MASK;
-            else m_params ^= INVERT_MASK;
+            else m_params &= ~INVERT_MASK;
         }
         effect = m_params & GRAYSCALE_MASK;
         if (ImGui::Checkbox("Gray scale", &effect)) {
             if (effect) m_params |= GRAYSCALE_MASK;
-            else m_params ^= GRAYSCALE_MASK;
+            else m_params &= ~GRAYSCALE_MASK;
         }
         effect = m_params & COLORTINT_MASK;
         if (ImGui::Checkbox("Color Tint", &effect)) {
             if (effect) m_params |= COLORTINT_MASK;
-            else m_params ^= COLORTINT_MASK;
+            else m_params &= ~COLORTINT_MASK;
+        } 
+        if (effect) {
+            ImGui::ColorEdit4("Color", glm::value_ptr(m_colorTint));
         }
-        ImGui::ColorEdit4("Color", glm::value_ptr(m_colorTint));
         effect = m_params & GRAIN_MASK;
         if (ImGui::Checkbox("GRAIN", &effect)) {
             if (effect) m_params |= GRAIN_MASK;
-            else m_params ^= GRAIN_MASK;
+            else m_params &= ~GRAIN_MASK;
         }
         effect = m_params & SCANLINE_MASK;
         if (ImGui::Checkbox("SCANLINE", &effect)) {
             if (effect) m_params |= SCANLINE_MASK;
-            else m_params ^= SCANLINE_MASK;
+            else m_params &= ~SCANLINE_MASK;
         }        
         effect = m_params & KERNEL_MASK;
         if (ImGui::Checkbox("KERNEL", &effect)) {
             if (effect) m_params |= KERNEL_MASK;
-            else m_params ^= KERNEL_MASK;
+            else m_params &= ~KERNEL_MASK;
         }
         effect = m_params & BLUR_MASK;
         if (ImGui::Checkbox("BLUR", &effect)) {
             if (effect) m_params |= BLUR_MASK;
-            else m_params ^= BLUR_MASK;
+            else m_params &= ~BLUR_MASK;
         }
         ImGui::End();
 
