@@ -59,7 +59,27 @@ namespace nc
             if (effect) m_params |= COLORTINT_MASK;
             else m_params ^= COLORTINT_MASK;
         }
-
+        ImGui::ColorEdit4("Color", glm::value_ptr(m_colorTint));
+        effect = m_params & GRAIN_MASK;
+        if (ImGui::Checkbox("GRAIN", &effect)) {
+            if (effect) m_params |= GRAIN_MASK;
+            else m_params ^= GRAIN_MASK;
+        }
+        effect = m_params & SCANLINE_MASK;
+        if (ImGui::Checkbox("SCANLINE", &effect)) {
+            if (effect) m_params |= SCANLINE_MASK;
+            else m_params ^= SCANLINE_MASK;
+        }        
+        effect = m_params & KERNEL_MASK;
+        if (ImGui::Checkbox("KERNEL", &effect)) {
+            if (effect) m_params |= KERNEL_MASK;
+            else m_params ^= KERNEL_MASK;
+        }
+        effect = m_params & BLUR_MASK;
+        if (ImGui::Checkbox("BLUR", &effect)) {
+            if (effect) m_params |= BLUR_MASK;
+            else m_params ^= BLUR_MASK;
+        }
         ImGui::End();
 
 
@@ -69,6 +89,8 @@ namespace nc
             program->Use();
             program->SetUniform("blend", m_blend);
             program->SetUniform("params", m_params);
+            program->SetUniform("Tint", m_colorTint);
+            program->SetUniform("time", m_time);
         }
 
         ENGINE.GetSystem<Gui>()->EndFrame();
