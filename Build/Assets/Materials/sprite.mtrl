@@ -3,7 +3,7 @@
   "albedoTexture":  "textures/llama.jpg" ,
   "albedo": [
     1,
-    0,
+    1,
     1
   ],
   "tiling": [ 1, 1 ],
