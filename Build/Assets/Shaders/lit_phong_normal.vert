@@ -43,7 +43,6 @@ void main() {
 
     otbn = mat3(tangent, bitangent, normal);
     
-
     // model - view - projection
     mat4 mvp = projection * view * model;
     gl_Position = mvp * vec4(vposition, 1.0);

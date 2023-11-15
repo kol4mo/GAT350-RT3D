@@ -66,7 +66,7 @@
 			"type": "Actor",
 			"name": "depth_debug",
 			"persistent": true,
-			"active": true,
+			"active": false,
 			"transform": {
 				"position": [ 0, 0, -1 ],
 				"scale": [ 2, 2, 2 ],
@@ -111,9 +111,9 @@
 			"persistent": true,
 			"active": true,
 			"transform": {
-				"position": [ 0, 3, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"euler": [ 90, 0, 0 ]
+				"position": [ -0.3, 4, 0.6 ],
+				"scale": [ 0.05, 0.05, 0.05 ],
+				"euler": [ 120, -30, 0 ]
 			},
 			"components": [
 				{
@@ -125,6 +125,12 @@
 					"innerAngle": 10,
 					"outerAngle": 30,
 					"castShadow": true
+				},
+				{
+					"type": "ModelComponent",
+					"modelName": "models/quad.obj",
+					"materialName": "materials/light.mtrl"
+
 				}
 			]
 		}

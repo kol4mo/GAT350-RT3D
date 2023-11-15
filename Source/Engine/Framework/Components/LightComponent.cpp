@@ -26,7 +26,13 @@ namespace nc
 		program->SetUniform(name + ".innerAngle", glm::radians(innerAngle));
 		program->SetUniform(name + ".outerAngle", glm::radians(outerAngle));
 		if (castShadow) {
-			program->SetUniform("shadowVP", getShadowMatrix());
+			glm::mat4 Bias = glm::mat4(
+				glm::vec4(0.5f, 0.0f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.5f, 0.0f, 0.0f),
+				glm::vec4(0.0f, 0.0f, 0.5f, 0.0f),
+				glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+			program->SetUniform("shadowVP", Bias * getShadowMatrix());
+			program->SetUniform("ShadowBias", shadowBias);
 		}
 	}
 
@@ -49,6 +55,7 @@ namespace nc
 		ImGui::Checkbox("Cast Shadow", &castShadow);
 		if (castShadow) {
 			ImGui::DragFloat("Shadow Size", &shadowSize, 0.1f);
+			ImGui::DragFloat("Shadow Bias", &shadowBias, 0.001f, 0, 0.5f);
 		}
 
 	}

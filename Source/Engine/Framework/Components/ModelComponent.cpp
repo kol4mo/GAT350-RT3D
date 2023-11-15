@@ -34,10 +34,17 @@ namespace nc
 		model->Draw();
 	}
 
+	void ModelComponent::ProcessGui()
+	{
+		ImGui::Checkbox("Cast Shadow", &castShadow);
+		ImGui::Checkbox("Enable Depth", &enableDepth);
+	}
+
 	void ModelComponent::Read(const json_t& value)
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
+		READ_DATA(value, castShadow);
 
 		READ_DATA(value, enableDepth);
 		std::string cullfaceName;

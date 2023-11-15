@@ -66,7 +66,7 @@ namespace nc
 
 	template <typename T>
 	constexpr T ToggleBits(T a, T b) {
-		return a ^ (1 << n);
+		return a ^ (1 << b);
 	}
 	// convert euler angles (degrees) to a quaternion
 	glm::vec3 QuaternionToEuler(const glm::quat& q);

@@ -13,6 +13,7 @@
 in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec3 fnormal;
 in layout(location = 2) vec2 ftexcoord;
+in layout(location = 3) vec4 fshadowcoord;
 
 out layout(location = 0) vec4 ocolor;
 
@@ -39,11 +40,14 @@ uniform struct Light {
 
 uniform vec3 ambientLight;
 uniform int numLights = 3;
+uniform float shadowBias = 0.005;
 
 layout(binding = 0) uniform sampler2D albedoTexture;
 layout(binding = 1) uniform sampler2D specularTexture;
 layout(binding = 2) uniform sampler2D normalTexture;
 layout(binding = 3) uniform sampler2D emissiveTexture;
+layout(binding = 5) uniform sampler2D shadowTexture;
+
 
 void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, out vec3 specular) {
 	// diffuse
@@ -78,6 +82,10 @@ float attenuation(in vec3 position1, in vec3 position2, in float range)
 	return attenuation;
 }
 
+float calculateShadow( vec4 shadowcoord, float bias) {
+	return (texture(shadowTexture, shadowcoord.xy).r < shadowcoord.z - shadowBias) ? 0 : 1;
+}
+
 void main()
 {
 	vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, ftexcoord) : vec4(material.albedo, 1); //vec4(material.albedo, 1);
@@ -87,6 +95,8 @@ void main()
 	// set ambient light + emissive color
 	ocolor = vec4(ambientLight, 1) * albedoColor + emissiveColor;
 
+	float shadow = calculateShadow(fshadowcoord, shadowBias);
+
 	for (int i = 0; i < numLights; i++) {
 		vec3 diffuse;
 		vec3 specular;
@@ -94,6 +104,6 @@ void main()
 		float attenuation = (lights[i].type == DIRECTIONAL) ? 1 : attenuation(lights[i].position, fposition, lights[i].range);
  
 		phong(lights[i], fposition, fnormal, diffuse, specular);
-		ocolor += ((vec4(diffuse, 1) * albedoColor) + (vec4(specular, 1) * specularColor)) * attenuation * lights[i].intensity;
+		ocolor += ((vec4(diffuse, 1) * albedoColor) + (vec4(specular, 1) * specularColor)) * attenuation * lights[i].intensity * shadow;
 	}
 }
