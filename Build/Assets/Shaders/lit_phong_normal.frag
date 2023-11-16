@@ -8,8 +8,9 @@
 #define EMISSIVE_TEXTURE_MASK (1<<3)
 
 in layout(location = 0) vec3 fposition;
-in layout(location = 2) mat3 ftbn;
 in layout(location = 1) vec2 ftexcoord;
+in layout(location = 2) mat3 ftbn;
+in layout(location = 5) vec4 fshadowcoord;
 //in layout(location = 3) vec4 fcolor;
 
 out layout(location = 0) vec4 ocolor;
@@ -38,12 +39,14 @@ uniform struct Light {//GUI light changes
 } lights[3];
 
 uniform vec3 ambientColor;
+uniform float shadowBias = 0.005;
 
 uniform int numLights = 3;
 layout(binding = 0) uniform sampler2D albedoTexture;
 layout(binding = 1) uniform sampler2D specularTexture;
 layout(binding = 2) uniform sampler2D normalTexture;
 layout(binding = 3) uniform sampler2D emissiveTexture;
+layout(binding = 5) uniform sampler2D shadowTexture;
 
 void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, out vec3 specular) {
 
@@ -61,11 +64,12 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 	//Specular
 	specular = vec3(0);
 	if (intensity > 0) {
-		vec3 viewDir = normalize(-fposition); //the direction from the pixel to the camera
+		vec3 viewDir = normalize(-position); //the direction from the pixel to the camera
 		//vec3 reflection = reflect(-lightDir, normal);//reflection, where a direct beam of light would go
 		//intensity = max(dot(reflection, viewDir), 0);
 		vec3 h = normalize(viewDir + lightDir);
-		intensity = max(dot(h,normal), 0);
+		intensity = max(dot(h, normal), 0);
+
 		intensity = pow(intensity, material.shininess);
 		specular = vec3(intensity * spotIntensity);//color value of specular
 	}
@@ -99,6 +103,9 @@ vec3 ads(in vec3 position, in vec3 normal) {
 	return ambient + (diffuse + specular) * light.intensity * attenuation;//total lighting value
 }
 */
+float calculateShadow( vec4 shadowcoord, float bias) {
+	return (texture(shadowTexture, shadowcoord.xy).r < shadowcoord.z - shadowBias) ? 0 : 1;
+}
 void main()
 {
 	vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, ftexcoord) : vec4(material.albedo, 1);
@@ -107,7 +114,8 @@ void main()
 	//vec4 texcolor = texture(tex, ftexcoord);
 
 	ocolor = vec4(ambientColor, 1) * albedoColor + emissiveColor;
-
+	
+	float shadow = calculateShadow(fshadowcoord, shadowBias);
 	for (int i= 0; i < numLights; i++) {
 		vec3 diffuse;
 		vec3 specular;
@@ -118,7 +126,7 @@ void main()
 		normal = normalize(ftbn * normal);
 
 		phong(lights[i], fposition, normal, diffuse, specular);
-		ocolor += ((vec4(diffuse, 1) * albedoColor) + vec4(specular, 1) * specularColor) * attenuation * lights[i].intensity; 
+		ocolor += ((vec4(diffuse, 1) * albedoColor) + vec4(specular, 1) * specularColor) * attenuation * lights[i].intensity * shadow; 
 	}
 
 }

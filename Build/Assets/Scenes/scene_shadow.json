@@ -6,15 +6,15 @@
 			"persistent": true,
 			"active": true,
 			"transform": {
-				"position": [ 0, -1, -3 ],
-				"scale": [ 0.1, 0.1, 0.1 ],
+				"position": [ 0, 1, 3 ],
+				"scale": [ 1, 1, 1 ],
 				"euler": [ 0, 0, 0 ]
 			},
 			"components": [
 				{
 					"type": "ModelComponent",
-					"modelName": "fantasy/Obj/SF_Bld_Elven_House_07.obj",
-					"materialName": "fantasy/fantasy.mtrl"
+					"modelName": "models/ogre.obj",
+					"materialName": "materials/ogre.mtrl"
 				},
 				{
 					"type": "RotateComponent",

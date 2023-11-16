@@ -65,10 +65,14 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 	// specular
 	specular = vec3(0);
 	if (intensity > 0) {
-		vec3 reflectDir = reflect(-lightDir, fnormal);
-		vec3 viewDir = normalize(-fposition);
-		float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-		specular = vec3(intensity * spotIntensity);
+		vec3 viewDir = normalize(-position); //the direction from the pixel to the camera
+		//vec3 reflection = reflect(-lightDir, normal);//reflection, where a direct beam of light would go
+		//intensity = max(dot(reflection, viewDir), 0);
+		vec3 h = normalize(viewDir + lightDir);
+		intensity = max(dot(h, normal), 0);
+
+		intensity = pow(intensity, material.shininess);
+		specular = vec3(intensity * spotIntensity);//color value of specular
 	}
 }
 

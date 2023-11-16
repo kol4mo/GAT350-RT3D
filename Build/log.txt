@@ -8,6 +8,7 @@ INFO: Factory.h(74) Class registered: Actor
 INFO: Main.cpp(17) Initialize Engine...
 WARNING: Program.cpp(165) Could not find uniform location: ShadowBias
 WARNING: Program.cpp(165) Could not find uniform location: ambientColor
+WARNING: Program.cpp(165) Could not find uniform location: ShadowBias
 WARNING: Program.cpp(165) Could not find uniform location: lights[0].type
 WARNING: Program.cpp(165) Could not find uniform location: lights[0].position
 WARNING: Program.cpp(165) Could not find uniform location: lights[0].direction
@@ -33,7 +34,6 @@ WARNING: Program.cpp(165) Could not find uniform location: shadowVP
 WARNING: Program.cpp(165) Could not find uniform location: ShadowBias
 WARNING: Program.cpp(165) Could not find uniform location: numLights
 WARNING: Program.cpp(165) Could not find uniform location: ambientColor
-WARNING: Program.cpp(165) Could not find uniform location: material.shininess
 WARNING: Program.cpp(165) Could not find uniform location: material.params
 WARNING: Program.cpp(165) Could not find uniform location: material.specular
 WARNING: Program.cpp(165) Could not find uniform location: material.emissive
