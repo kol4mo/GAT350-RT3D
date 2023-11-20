@@ -16,6 +16,7 @@ namespace nc
 
 	void Scene::Update(float dt)
 	{
+		m_dt = dt;
 		// update and remove destroyed actors
 		auto iter = m_actors.begin();
 		while (iter != m_actors.end())
@@ -49,9 +50,9 @@ namespace nc
 			{
 				std::string name = "lights[" + std::to_string(index++) + "]";
 
+				glm::mat4 view = (camera) ? camera->view : glm::mat4(1);
 
-
-				light->SetProgram(program, name);
+				light->SetProgram(program, name, view);
 			}
 
 			if (camera) camera->SetProgram(program);
@@ -83,6 +84,19 @@ namespace nc
 		while (iter != m_actors.end())
 		{
 			(force || !(*iter)->persistent) ? iter = m_actors.erase(iter) : iter++;
+		}
+	}
+
+	void Scene::Remove(Actor* actor)
+	{
+		auto iter = m_actors.begin();
+		while (iter != m_actors.end())
+		{
+			if ((*iter).get() == actor) {
+				iter = m_actors.erase(iter);
+				break;
+			}
+			iter++;
 		}
 	}
 
@@ -128,31 +142,11 @@ namespace nc
 
 	void Scene::ProcessGui()
 	{
-		ImGui::Begin("Scene");
+		float fps = 1 / m_dt;
+		float ms = 1000 * m_dt;
+		ImVec4 color = (fps < 30) ? ImVec4{ 1, 0, 0, 1 } : ImVec4{ 1,1,1,1 };
+		ImGui::TextColored(color, "%.2f FPS (%.2f)", fps, ms);
 		ImGui::ColorEdit3("Ambient", glm::value_ptr(ambientColor));
-		ImGui::Separator();
-
-
-
-		for (auto& actor : m_actors)
-		{
-			if (ImGui::Selectable(actor->name.c_str(), actor->guiSelect))
-			{
-				std::for_each(m_actors.begin(), m_actors.end(), [](auto& a) { a->guiSelect = false; });
-				actor->guiSelect = true;
-			}
-		}
-		ImGui::End();
-
-
-
-		ImGui::Begin("Inspector");
-		auto iter = std::find_if(m_actors.begin(), m_actors.end(), [](auto& a) { return a->guiSelect; });
-		if (iter != m_actors.end())
-		{
-			(*iter)->ProcessGui();
-		}
-		ImGui::End();
 	}
 
 }

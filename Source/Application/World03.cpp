@@ -48,7 +48,7 @@ namespace nc
         m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? +dt * m_speed : 0;
 
         m_time += dt;
-        m_material->processGUI();
+        m_material->ProcessGui();
         m_material->Bind();
         //model matrix
         //glm::mat4 position = glm::translate(glm::mat4{ 1 }, m_position);

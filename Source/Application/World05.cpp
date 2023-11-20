@@ -62,7 +62,7 @@ namespace nc
 
         auto material = actor->GetComponent<ModelComponent>()->material;
 
-        material->processGUI();
+        material->ProcessGui();
         material->Bind();
         
         auto m_material = GET_RESOURCE(Material, "materials/refraction.mtrl");

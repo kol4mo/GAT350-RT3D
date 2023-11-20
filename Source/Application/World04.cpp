@@ -73,7 +73,7 @@ namespace nc
 
 
 
-        m_material->processGUI();
+        m_material->ProcessGui();
         m_material->Bind();
         //model matrix
         //glm::mat4 position = glm::translate(glm::mat4{ 1 }, m_position);

@@ -15,6 +15,8 @@ namespace nc
         m_scene->Load("scenes/scene_Cel.json");
         m_scene->Initialize();
 
+        m_editor = std::make_unique<Editor>();
+
         //create depthTexture
         auto texture = std::make_shared<Texture>();
         texture->CreateDepthTexture(2048, 2048);
@@ -41,9 +43,11 @@ namespace nc
 
     void World08::Update(float dt) {
         m_time += dt;
-        ENGINE.GetSystem<Gui>()->BeginFrame();        
+        ENGINE.GetSystem<Gui>()->BeginFrame();  
+
         m_scene->Update(dt);
-        m_scene->ProcessGui();
+        m_editor->ProcessGui(m_scene.get());
+
         ImGui::Begin("Cel");
         ImGui::DragInt("Levels", &m_celLevels);
         ImGui::DragFloat("Specular Cuttoff", &m_specularCut);

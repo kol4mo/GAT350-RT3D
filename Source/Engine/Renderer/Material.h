@@ -24,7 +24,7 @@ namespace nc
 		void Bind();
 
 		res_t<Program> GetProgram() { return m_program; }
-		void processGUI();
+		void ProcessGui() override;
 
 
 	public:
