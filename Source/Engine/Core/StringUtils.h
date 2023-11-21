@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+#include <sstream>
 
 namespace nc
 {
-	inline static uint16_t uniqstr = 0;
+	inline static int uniqstr = 0;
 	inline std::string ToUpper(std::string input) {
 		for (int i = 0; i < input.length(); i++)
 		{
@@ -36,9 +37,16 @@ namespace nc
 		return true;
 	}
 
-	inline void CreateUniqueStr(std::string& input) {
-		input += (char)uniqstr;
+	inline std::string CreateUniqueStr(std::string input) {
+		std::stringstream ss;
+		ss << uniqstr;
+		std::string string = ss.str();
+
+		std::string newString = input.append(" " + string);
+
 		uniqstr++;
+
+		return newString;
 	}
 
 }
