@@ -3,6 +3,9 @@
 #include "Components/CameraComponent.h"
 
 namespace nc {
+
+
+
 	void Editor::Update()
 	{
 		if (ImGui::IsKeyPressed(ImGuiKey_GraveAccent)) m_active = !m_active;
@@ -12,11 +15,38 @@ namespace nc {
 	{
 		if (!m_active) return;
 		ImGui::Begin("Resources");
-		
-		auto resources = GET_RESOURCES(Resource);
-		for (auto& resource : resources) {
-			if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected)) {
-				m_selected = resource.get();
+		const char* types[4] = { "TEXTURE", "MODEL", "MATERIAL", "SHADER" };
+		ImGui::Combo("Type", (int*)(&type), types, 4);
+		if (type == TEXTURE){
+			auto resources = GET_RESOURCES(Texture);
+			for (auto& resource : resources) {
+				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected)) {
+					m_selected = resource.get();
+				}
+			}
+		}
+		else if (type == MODEL) {
+			auto resources = GET_RESOURCES(Model);
+			for (auto& resource : resources) {
+				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected)) {
+					m_selected = resource.get();
+				}
+			}
+		}
+		else if (type == MATERIAL) {
+			auto resources = GET_RESOURCES(Material);
+			for (auto& resource : resources) {
+				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected)) {
+					m_selected = resource.get();
+				}
+			}
+		}
+		else if (type == SHADER) {
+			auto resources = GET_RESOURCES(Shader);
+			for (auto& resource : resources) {
+				if (ImGui::Selectable(resource->name.c_str(), resource.get() == m_selected)) {
+					m_selected = resource.get();
+				}
 			}
 		}
 
