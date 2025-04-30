@@ -1,0 +1,13 @@
+INFO: Factory.h(74) Class registered: RotateComponent
+INFO: Factory.h(74) Class registered: ModelComponent
+INFO: Factory.h(74) Class registered: LightComponent
+INFO: Factory.h(74) Class registered: EnginePhysicsComponent
+INFO: Factory.h(74) Class registered: CameraController
+INFO: Factory.h(74) Class registered: CameraComponent
+INFO: Factory.h(74) Class registered: Actor
+INFO: Main.cpp(18) Initialize Engine...
+WARNING: FileIO.cpp(48) File not loaded: materials/squirrel.mtrl
+WARNING: Json.cpp(14) Cannot open file: materials/squirrel.mtrl
+INFO: Material.cpp(18) Could not load program file (%s).materials/squirrel.mtrl
+WARNING: ResourceManager.h(68) Could not create resource: materials/squirrel.mtrl
+WARNING: Model.cpp(25) Could not load assimp file %sUnable to open file "models/squirrel.glb".

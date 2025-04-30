@@ -1,0 +1,12 @@
+{
+  "program": "shaders/refraction.prog",
+  "cubemap": "night_cubemap",
+  "cubemaps": [
+    "textures/no/posx.jpg",
+    "textures/no/negx.jpg",
+    "textures/no/posy.jpg",
+    "textures/no/negy.jpg",
+    "textures/no/posz.jpg",
+    "textures/no/negz.jpg"
+  ]
+}

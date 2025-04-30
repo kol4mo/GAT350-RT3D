@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::World08>();
+	auto world = make_unique<nc::World04>();
 	world->Initialize();
 
 	// main loop
