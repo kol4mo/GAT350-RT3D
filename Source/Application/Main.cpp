@@ -16,23 +16,14 @@ int main(int argc, char* argv[])
 {
 	
 	INFO_LOG("Initialize Engine...");
-	std::cout << nc::ToUpper("lol, LOL") << "\n";
-	std::cout << nc::ToLower("lol, LOL") << "\n";
-	std::cout << nc::IsEqualIgnoreCase("lol", "LOL") << "\n";
-	std::cout << nc::IsEqualIgnoreCase("idk", "LOL") << "\n";
-	std::string m_string = "lol";
-	std::cout << m_string << "\n";
-	nc::CreateUniqueStr(m_string);
-	std::cout << m_string << "\n";
-	nc::CreateUniqueStr(m_string);
-	std::cout << m_string;
+
 	//nc::MemoryTracker::Initialize();
 	nc::seedRandom((unsigned int)time(nullptr));
 	nc::setFilePath("assets");
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::World04>();
+	auto world = make_unique<nc::World03>();
 	world->Initialize();
 
 	// main loop

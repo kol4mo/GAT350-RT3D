@@ -45,7 +45,7 @@ namespace nc
 	{
 		if (!fileExists(path))
 		{
-			WARNING_LOG("File not loaded: " << path.string());
+			WARNING_LOG("File not loaded: " << std::filesystem::current_path() <<path.string());
 			return false;
 		}
 
