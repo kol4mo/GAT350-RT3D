@@ -1,4 +1,0 @@
-{
-	"vertexShader": "shaders/shadow_depth.vert",
-	"fragmentShader": "shaders/shadow_depth.frag"
-}

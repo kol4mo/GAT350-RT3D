@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::World03>();
+	auto world = make_unique<nc::World08>();
 	world->Initialize();
 
 	// main loop

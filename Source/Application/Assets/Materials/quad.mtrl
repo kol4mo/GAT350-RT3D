@@ -1,12 +1,18 @@
 {
-  "program":"Shaders/unlit_multi_texture.prog",
-  "textures": [ "Textures/llama.tga", "Textures/blob.jpg" ],
-  "color":[
-      1,
-      1,
-      1,
-      1
-    ],
+  "program": "shaders/lit_phong.prog",
+  "albedoTexture": "Textures/llama.tga",
+  "albedo": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "specular": [
+    0,
+    0,
+    0
+  ],
+  "shininess": 60,
   "tiling": [ 1, 1 ],
   "offset": [ 0, 0 ]
 }
